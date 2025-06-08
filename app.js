@@ -24,8 +24,6 @@ const userRoutes = require("./Routes/userRoute");
 const questionRoutes = require("./Routes/questionRoute");
 // const authMiddleware = require("./middleware/authMiddleware");
 
-const questionRoutes = require("./Routes/questionRoute");
-// const authMiddleware = require("./MiddleWare/authMiddleware");
 
 // user Route middleware
 app.use("/api/users", userRoutes);
