@@ -12,7 +12,7 @@ app.use(express.json());
 
 // DB connection and table schemas
 
-const dbconnection = require ('./Db/dbConfig')
+const dbConnection = require ('./Db/dbConfig')
 const { users, questions, answers } = require("./Table/Schema");
 
 // Routes
@@ -31,15 +31,17 @@ async function start() {
     console.log("Database connection established");
 
     // Create tables
-    await dbConnection.execute(users);
-    await dbConnection.execute(questions);
-    await dbConnection.execute(answers);
+    await dbConnection.query(users);
+    await dbConnection.query(questions);
+    await dbConnection.query(answers);
 
-    await app.listen(port);
-
+    app.listen(port, () => {
+      console.log(`Server running on http://localhost:${port}`);
+    });
+  } catch (error) {
+    console.error("Failed to start server:", error);
+  }
 }
-
-// start server
 
 start();
 
