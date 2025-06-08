@@ -4,7 +4,7 @@ const mysql2 = require("mysql2");
 
 const dbConnection = mysql2.createPool({
   user: "evangadi-admin",
-  password: "Evangadi123456$$",
+  password: "212121",
   host: "localhost",
   database: "evangadi-db",
   // || 10 - Fallback if the environment variable is: Missing/undefined/Empty string
