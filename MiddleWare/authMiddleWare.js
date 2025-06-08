@@ -12,7 +12,7 @@ if (!authHeader || !authHeader.starsWith('Bearer')){
 }
 //  removing bearer prefix from the authHeader
 
- const token = authHeader.slice(7);
+const token = authHeader.slice(7);
 
 try {
 const data= jwt.verify(token,process.env.JWT_SECRET)
@@ -21,7 +21,7 @@ next()
 
 }catch (error) {
 const message =
-      error.name === "TokenExpiredError"
+    error.name === "TokenExpiredError"
         ? "Token expired"
         : "Authentication invalid";
 
@@ -29,11 +29,5 @@ return res.status (StatusCodes.UNAUTHORIZED).json({msg:message})
 }
 }
 
-// "data": {
-    //     "username": "Gir",
-    //     "userid": 10,
-    //     "iat": 1696211748,
-    //     "exp": 1696298148
-    //   }
 
 module.exports=authMiddleware
