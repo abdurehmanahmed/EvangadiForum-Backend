@@ -1,21 +1,17 @@
 {
-  "name": "evangadiforum-backend",
+  "name": "evangadi-forum-project",
   "version": "1.0.0",
-  "main": "app.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/abdurehmanahmed/EvangadiForum-Backend.git"
-  },
-  "author": "",
-  "license": "ISC",
+  "description": "Full Stack course final project",
+  "homepage": "https://github.com/abdurehmanahmed/EvangadiForum-Backend#readme",
   "bugs": {
     "url": "https://github.com/abdurehmanahmed/EvangadiForum-Backend/issues"
   },
-  "homepage": "https://github.com/abdurehmanahmed/EvangadiForum-Backend#readme",
-  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
   "dependencies": {
     "bcrypt": "^6.0.0",
     "cors": "^2.8.5",
@@ -26,3 +22,4 @@
     "mysql2": "^3.14.1"
   }
 }
+
