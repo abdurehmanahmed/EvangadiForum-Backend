@@ -4,7 +4,7 @@ const answerController = () => {
      
   return (
     <div>
-     Hello
+   
     </div>
   )
 }

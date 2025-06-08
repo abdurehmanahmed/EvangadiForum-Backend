@@ -46,7 +46,7 @@ async function start() {
     await app.listen(port);
 
 }
-
+}
 // start server
 
 start();
