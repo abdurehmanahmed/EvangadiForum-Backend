@@ -16,7 +16,8 @@ const token = authHeader.slice(7);
 
 try {
 const data= jwt.verify(token,process.env.JWT_SECRET)
-req.user={username,userid}
+req.user = { username: data.username, userid: data.userid };
+
 next()
 
 }catch (error) {

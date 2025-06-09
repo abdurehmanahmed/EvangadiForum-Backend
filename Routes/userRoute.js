@@ -1,9 +1,8 @@
-
 const express = require("express"); // Imports Express.js
 const router = express.Router(); // Creates an Express Router instance
 
 // Authentication middleware
-const authMiddleware = require('../MiddleWare/authMiddleWare'); // Imports authentication middleware
+const authMiddleware = require("../MiddleWare/authMiddleWare");
 
 // user controllers
 const { login, register, checkUser } = require("../Controller/userController"); // Imports specific controller functions
