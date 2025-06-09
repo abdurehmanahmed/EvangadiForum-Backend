@@ -1,16 +1,12 @@
-// require("dotenv").config(); // Load environment variable
-require("dotenv").config({ path: "../.env" });
 const mysql2 = require("mysql2");
 
 const dbConnection = mysql2.createPool({
-  user: "evangadi-admin",
-  password: "212121",
-  host: "localhost",
-  database: "evangadi-db",
-  // || 10 - Fallback if the environment variable is: Missing/undefined/Empty string
-  connectionLimit: 10,
-});
 
-// Converts the pool to use Promise-based queries instead of callbacks.
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  host: process.env.DB_HOST,
+  database: process.env.DB_NAME,
+  connectionLimit: parseInt(process.env.DB_CONNECTION_LIMIT) || 10,
+});
 
 module.exports = dbConnection.promise();

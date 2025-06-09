@@ -29,11 +29,5 @@ return res.status (StatusCodes.UNAUTHORIZED).json({msg:message})
 }
 }
 
-// "data": {
-    //     "username": "Gir",
-    //     "userid": 10,
-    //     "iat": 1696211748,
-    //     "exp": 1696298148
-    //   }
 
 module.exports=authMiddleware

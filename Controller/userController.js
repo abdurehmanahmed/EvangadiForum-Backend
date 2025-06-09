@@ -1,10 +1,11 @@
 // Controller/userController.js
 
+const dbConnection = require("../Db/dbConfig");
+
 // Import necessary modules
-const dbConnection = require("../Db/dbConfig"); // For database interaction
-const bcrypt = require("bcrypt");               // For password hashing and comparison
-const jwt = require("jsonwebtoken");            // For generating JSON Web Tokens
-const { StatusCodes } = require("http-status-codes"); // For standardized HTTP status codes
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
+const { StatusCodes } = require("http-status-codes");
 
 // --- Register Function ---
 async function register(req, res) {
@@ -136,10 +137,11 @@ async function checkUser(req, res) {
     }
 }
 
+
 // --- Export Functions ---
 // Export all functions so they can be imported and used by other modules (like userRoute.js)
 module.exports = {
     register,
     login,
-    checkUser, // Make sure checkUser is included here!
+    checkUser, // Ensure checkUser is correctly included here, and only once!
 };
