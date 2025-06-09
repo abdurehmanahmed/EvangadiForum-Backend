@@ -1,76 +1,67 @@
-// Controller/answerController.js
-
-const dbConnection = require("../Db/dbConfig"); // Corrected to use 'Db' for folder, and 'dbConfig'
-const { StatusCodes } = require("http-status-codes"); // Import StatusCodes only once
+const dbConnection = require("../Db/dbConfig");
+const { StatusCodes } = require("http-status-codes");
 
 async function getAnswersByQuestionId(req, res) {
-    const { question_id } = req.params;
+  const { questionid } = req.params;
 
-    if (!question_id || isNaN(question_id)) {
-        return res.status(StatusCodes.BAD_REQUEST).json({
-            error: "Bad Request",
-            message: "Invalid question ID.",
-        });
+  if (!questionid || isNaN(questionid)) {
+    return res.status(StatusCodes.BAD_REQUEST).json({
+      error: "Bad Request",
+      message: "Invalid question ID.",
+    });
+  }
+
+  try {
+    const [answers] = await dbConnection.query(
+      `
+      SELECT a.answerid, a.answer, u.username, a.createdate
+      FROM answers a
+      JOIN users u ON a.userid = u.userid
+      WHERE a.questionid = ?
+      ORDER BY a.createdate DESC
+      `,
+      [questionid]
+    );
+
+    if (answers.length === 0) {
+      return res.status(StatusCodes.NOT_FOUND).json({
+        error: "Not Found",
+        message: "The requested answer could not be found."
+      });
     }
 
-    try {
-        const [answers] = await dbConnection.query( // Using dbConnection (consistent casing)
-            `
-            SELECT a.answer_id, a.answer AS content, u.username AS user_name, a.created_at
-            FROM answers a
-            JOIN users u ON a.user_id = u.userid
-            WHERE a.question_id = ?
-            ORDER BY a.created_at DESC
-            `,
-            [question_id]
-        );
+    return res.status(StatusCodes.OK).json({ answers });
 
-        if (answers.length === 0) {
-            return res.status(StatusCodes.NOT_FOUND).json({
-                error: "Not Found",
-                message: "No answers found for the requested question, or question does not exist."
-            });
-        }
-
-        return res.status(StatusCodes.OK).json({ answers });
-
-    } catch (error) {
-        console.error("DB error (getAnswersByQuestionId):", error.message);
-        return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
-            error: "Internal Server Error",
-            message: "An unexpected error occurred while fetching answers."
-        });
-    }
+  } catch (error) {
+    console.error("DB error:", error.message);
+    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+      error: "Internal Server Error",
+      message: "An unexpected error occurred."
+    });
+  }
 }
 
-async function postAnswer(req, res) {
-    // 1. get data from request body
-    const { answer, questionid, userid } = req.body;
+//This file contains the logic for handling the incoming answer data, validating it, and storing it in the database.
+async function postAnswer (req,res) {
+    //1. get data from request body
+    const {answer, questionid} = req.body;
+    const userid = req.user.userid;
 
-    // 2.input validation
+    //2.input validation
     if (!answer || !questionid || !userid) {
-        return res.status(StatusCodes.BAD_REQUEST).json({ msg: 'Please provide answer, question ID, and user ID!' });
+        return res.status(StatusCodes.BAD_REQUEST).json({msg:'Please provide answer!'})
     }
-
     try {
-        // 3.database insertion
-        // Corrected table name from 'answer' to 'answers' (plural, to match your schema)
-        // Ensure column names in INSERT statement match your actual database schema (e.g., user_id, question_id)
-        await dbConnection.query( // Using dbConnection (consistent casing)
-            "INSERT INTO answers (user_id, question_id, answer) VALUES (?,?,?)",
-            [userid, questionid, answer]
+        //3.database insertion
+        await dbConnection.query(
+            "INSERT INTO answers(userid, questionid, answer) VALUES (?,?,?)",[userid,questionid,answer]
         );
-        // 4. send success response
-        return res.status(StatusCodes.CREATED).json({ msg: "Answer posted successfully!" });
-    } catch (error) {
-        // 5.handle errors
+        //4. send success response
+        return res.status (StatusCodes.CREATED).json({msg:"Answer posted successfully!"})
+    }catch(error){
+        //5.handle errors
         console.error("Error posting answer:", error.message);
-        return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ msg: "An unexpected error occurred while posting the answer." });
+        return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({msg:"An unexpected error occurred."})
     }
 }
-
-// Export all functions that this module provides
-module.exports = {
-    getAnswersByQuestionId,
-    postAnswer,
-};
+module.exports = { postAnswer, getAnswersByQuestionId };
