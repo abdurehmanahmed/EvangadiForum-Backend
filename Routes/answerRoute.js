@@ -1,12 +1,16 @@
-//This file define the endpoint and link it to the controller function.
-const express = require('express');
-const router = express.Router()
-const {postAnswer} = require ('../Controller/answerController');
+const express = require("express");
+const router = express.Router();
 
-//Define the post/api/answer endpoint
+// Import answer controller functions
+const {
+  getAnswersByQuestionId,
+  postAnswer
+} = require("../Controller/answerController");
 
-router.post('/',(req, res)=>{
-    postAnswer(req,res);
-})
+// protected route to post an answer
+router.post("/", postAnswer);
 
-module.exports = router
+// protected route to get answer for a question
+router.get("/:questionid", getAnswersByQuestionId);
+
+module.exports = router;
