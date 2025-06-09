@@ -1,6 +1,6 @@
 // userController.js
 
-const dbConnection = require("./Db/dbConfig"); 
+const dbConnection = require("../Db/dbConfig"); 
 const bcrypt = require("bcrypt"); // For password hashing
 const { StatusCodes } = require("http-status-codes"); // For standardized HTTP status codes
 const jwt = require("jsonwebtoken"); // For creating JSON Web Tokens
