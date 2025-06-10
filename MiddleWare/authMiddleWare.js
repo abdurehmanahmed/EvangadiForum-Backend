@@ -12,7 +12,7 @@ if (!authHeader || !authHeader.startsWith('Bearer')){
 }
 //  removing bearer prefix from the authHeader
 
-const token = authHeader.slice(7);
+const token =authHeader.slice(7);
 
 try {
 const data= jwt.verify(token,process.env.JWT_SECRET)
