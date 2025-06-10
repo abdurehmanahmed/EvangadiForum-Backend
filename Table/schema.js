@@ -1,3 +1,5 @@
+//Database Tables
+
 export let users = `CREATE TABLE IF NOT EXISTS users (
     userid INT(20) NOT NULL AUTO_INCREMENT,
     username VARCHAR(20) NOT NULL,
