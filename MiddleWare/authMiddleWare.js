@@ -10,6 +10,7 @@ if (!authHeader || !authHeader.starsWith('Bearer')){
     
     return res.status(StatusCodes.UNAUTHORIZED).json({msg:'Authentication invalid'})
 }
+
 //  removing bearer prefix from the authHeader
 
 const token = authHeader.slice(7);
