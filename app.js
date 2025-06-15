@@ -20,7 +20,7 @@ const answersRoute = require("./Routes/answerRoute");
 const authMiddleware = require("./MiddleWare/authMiddleWare");
 
 // Route middleware
-app.use("/api/users", userRoutes);
+app.use("/api/users/", userRoutes);
 app.use("/api/answer", authMiddleware, answersRoute);
 app.use("/api/question", authMiddleware, questionRoutes);
 
