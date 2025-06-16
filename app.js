@@ -14,7 +14,7 @@ const dbConnection = require("./Db/dbConfig");
 const { users, questions, answers } = require("./Table/schema");
 
 // Routes
-const userRoutes = require("./Routes/userRoute");
+const userRoutes =require("./Routes/userRoute");
 const questionRoutes = require("./Routes/questionRoute");
 const answersRoute = require("./Routes/answerRoute");
 const authMiddleware = require("./MiddleWare/authMiddleWare");
